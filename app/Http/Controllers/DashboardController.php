@@ -33,7 +33,12 @@ class DashboardController extends Controller
         $topGrapari = $graparis->sortByDesc(fn (Grapari $g) => $g->likes + $g->comments + $g->direct_chats)->first()
             ?? $graparis->first();
         $activeTab = $request->query('tab', 'dashboard');
-        $selectedGrapariId = $request->query('grapari');
+
+        $isBranchUser = $request->session()->get('grapari_role') === 'branch'
+            && $request->session()->get('grapari_branch_id');
+        $branchGrapariId = $isBranchUser ? (int) $request->session()->get('grapari_branch_id') : null;
+        $branchGrapari = $branchGrapariId ? $graparis->firstWhere('id', $branchGrapariId) : null;
+        $selectedGrapariId = $isBranchUser ? $branchGrapariId : $request->query('grapari');
 
         return view('dashboard', compact(
             'graparis',
@@ -43,7 +48,9 @@ class DashboardController extends Controller
             'summary',
             'topGrapari',
             'activeTab',
-            'selectedGrapariId'
+            'selectedGrapariId',
+            'isBranchUser',
+            'branchGrapari'
         ));
     }
 
@@ -149,8 +156,12 @@ class DashboardController extends Controller
             SocialContent::query()->update(['is_featured' => false]);
         }
 
+        $targetGrapariId = ($request->session()->get('grapari_role') === 'branch' && $request->session()->get('grapari_branch_id'))
+            ? (int) $request->session()->get('grapari_branch_id')
+            : (int) $validated['grapari_id'];
+
         SocialContent::create([
-            'grapari_id' => $validated['grapari_id'],
+            'grapari_id' => $targetGrapariId,
             'post_url' => $validated['post_url'] ?? null,
             'title' => $title,
             'campaign_tag' => $campaignTag,
@@ -166,7 +177,7 @@ class DashboardController extends Controller
 
         $this->recalculateAllGrapariAndTrendMetrics();
 
-        return redirect()->route('dashboard', ['grapari' => $validated['grapari_id']])
+        return redirect()->route('dashboard', ['grapari' => $targetGrapariId])
             ->with('success', 'Konten Facebook Marketplace berhasil ditambahkan & seluruh grafik diperbarui!');
     }
 

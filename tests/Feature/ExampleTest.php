@@ -44,6 +44,25 @@ class ExampleTest extends TestCase
         $logoutResponse->assertRedirect(route('login'));
     }
 
+    public function test_each_grapari_branch_user_can_login_to_their_own_branch_dashboard(): void
+    {
+        $this->seed();
+
+        $loginResponse = $this->post(route('login.submit'), [
+            'username' => 'ternate',
+            'password' => 'ternate',
+        ]);
+
+        $loginResponse->assertRedirect(route('dashboard'));
+        $this->assertSame('branch', session('grapari_role'));
+
+        $dashboard = $this->get(route('dashboard'));
+        $dashboard->assertOk();
+        $dashboard->assertSee('Dashboard Ternate');
+        $dashboard->assertSee('Tambah Konten');
+        $dashboard->assertSee('GraPARI Ternate');
+    }
+
     public function test_the_dashboard_returns_a_successful_response_with_seeded_data(): void
     {
         $this->seed();

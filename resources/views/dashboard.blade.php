@@ -87,33 +87,52 @@
 
             <!-- Navigation Menu -->
             <nav class="px-3.5 space-y-1.5 mt-1">
-                <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard"
-                    class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 {{ $activeTab === 'dashboard' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
-                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-                        <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
-                    </svg>
-                    <span>Dashboard</span>
-                </button>
+                @if(!empty($isBranchUser) && !empty($branchGrapari))
+                    <button type="button" onclick="openGrapariDetail({{ $branchGrapari->id }})" id="nav-branch-dashboard"
+                        class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 nav-active cursor-pointer">
+                        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                            <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                        </svg>
+                        <span>Dashboard {{ $branchGrapari->short_name }}</span>
+                    </button>
 
-                <button type="button" onclick="switchTab('laporan')" id="nav-laporan"
-                    class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 border-b border-slate-100 {{ $activeTab === 'laporan' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
-                    <svg class="w-5 h-5 shrink-0 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2.5" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m7 14 3.5-3.5 2.5 2.5L17 9" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 9h3v3" />
-                    </svg>
-                    <span>Laporan</span>
-                </button>
+                    <button type="button" onclick="openAddContentModal({{ $branchGrapari->id }})" id="nav-branch-add"
+                        class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 text-slate-600 hover:bg-slate-100/80 cursor-pointer">
+                        <svg class="w-5 h-5 shrink-0 text-[#E11D2B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        <span>Tambah Konten</span>
+                    </button>
+                @else
+                    <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard"
+                        class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 {{ $activeTab === 'dashboard' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
+                        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                            <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                        </svg>
+                        <span>Dashboard</span>
+                    </button>
 
-                <button type="button" onclick="switchTab('pengaturan')" id="nav-pengaturan"
-                    class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 {{ $activeTab === 'pengaturan' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
-                    <svg class="w-5 h-5 shrink-0 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" />
-                        <circle cx="12" cy="12" r="3" />
-                    </svg>
-                    <span>Pengaturan</span>
-                </button>
+                    <button type="button" onclick="switchTab('laporan')" id="nav-laporan"
+                        class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 border-b border-slate-100 {{ $activeTab === 'laporan' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
+                        <svg class="w-5 h-5 shrink-0 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2.5" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m7 14 3.5-3.5 2.5 2.5L17 9" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 9h3v3" />
+                        </svg>
+                        <span>Laporan</span>
+                    </button>
+
+                    <button type="button" onclick="switchTab('pengaturan')" id="nav-pengaturan"
+                        class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 {{ $activeTab === 'pengaturan' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
+                        <svg class="w-5 h-5 shrink-0 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        <span>Pengaturan</span>
+                    </button>
+                @endif
             </nav>
         </div>
 
@@ -716,32 +735,36 @@
         </main>
 
         <!-- ==================== DRILL-DOWN VIEW: DETAIL KONTEN & GRAFIK LINE PER GRAPARI ==================== -->
-        <section id="tab-grapari-detail" class="hidden space-y-4">
+        <section id="tab-grapari-detail" class="{{ !empty($isBranchUser) ? 'block' : 'hidden' }} space-y-4">
             <!-- Top Header & Branch Switcher Card -->
             <div class="card-glass rounded-2xl p-5">
                 <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
                     <div class="flex items-center gap-3">
-                        <button type="button" onclick="closeGrapariDetail()"
-                            class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 transition cursor-pointer shadow-2xs">
-                            <span>←</span>
-                            <span>Kembali ke Dashboard</span>
-                        </button>
+                        @if(empty($isBranchUser))
+                            <button type="button" onclick="closeGrapariDetail()"
+                                class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 transition cursor-pointer shadow-2xs">
+                                <span>←</span>
+                                <span>Kembali ke Dashboard</span>
+                            </button>
+                        @endif
                         <div>
                             <div class="flex items-center gap-2">
-                                <h2 id="detail-grapari-title" class="text-lg font-extrabold text-slate-900">GraPARI Manado</h2>
-                                <span id="detail-grapari-rank-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-[#E11D2B]">Rank #1</span>
+                                <h2 id="detail-grapari-title" class="text-lg font-extrabold text-slate-900">{{ $branchGrapari->name ?? 'GraPARI Manado' }}</h2>
+                                <span id="detail-grapari-rank-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-[#E11D2B]">Rank #{{ $branchGrapari->rank ?? 1 }}</span>
                             </div>
-                            <p id="detail-grapari-address" class="text-xs text-slate-500 mt-0.5">Jl. Piere Tendean (Boulevard), Sario Tumpaan, Kota Manado</p>
+                            <p id="detail-grapari-address" class="text-xs text-slate-500 mt-0.5">{{ $branchGrapari->address ?? 'Jl. Piere Tendean (Boulevard), Sario Tumpaan, Kota Manado' }}</p>
                         </div>
                     </div>
 
                     <div class="flex items-center gap-2.5">
-                        <select id="detailGrapariSwitcher" onchange="openGrapariDetail(Number(this.value))"
-                            class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 focus:outline-none focus:border-red-500 cursor-pointer">
-                            @foreach($graparis as $g)
-                                <option value="{{ $g->id }}">{{ $g->name }}</option>
-                            @endforeach
-                        </select>
+                        @if(empty($isBranchUser))
+                            <select id="detailGrapariSwitcher" onchange="openGrapariDetail(Number(this.value))"
+                                class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 focus:outline-none focus:border-red-500 cursor-pointer">
+                                @foreach($graparis as $g)
+                                    <option value="{{ $g->id }}">{{ $g->name }}</option>
+                                @endforeach
+                            </select>
+                        @endif
                         <button type="button" onclick="openAddContentModal(currentSelectedGrapariId)"
                             class="pill-active-red px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer">
                             <span>+ Tambah Konten Cabang Ini</span>
@@ -1010,12 +1033,19 @@
         <form action="{{ route('contents.store') }}" method="POST" class="mt-4 space-y-4">
             @csrf
             <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">1. Pilih Cabang GraPARI</label>
-                <select id="modalGrapariSelect" name="grapari_id" required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:outline-none focus:border-red-500">
-                    @foreach($graparis as $g)
-                        <option value="{{ $g->id }}">{{ $g->name }}</option>
-                    @endforeach
-                </select>
+                <label class="block text-xs font-bold text-slate-700 mb-1">1. Cabang GraPARI</label>
+                @if(!empty($isBranchUser) && !empty($branchGrapari))
+                    <input type="hidden" id="modalGrapariSelect" name="grapari_id" value="{{ $branchGrapari->id }}">
+                    <div class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-sm font-bold text-slate-800">
+                        {{ $branchGrapari->name }}
+                    </div>
+                @else
+                    <select id="modalGrapariSelect" name="grapari_id" required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:outline-none focus:border-red-500">
+                        @foreach($graparis as $g)
+                            <option value="{{ $g->id }}">{{ $g->name }}</option>
+                        @endforeach
+                    </select>
+                @endif
             </div>
 
             <!-- STEP 2: PASTE LINK FACEBOOK -->
