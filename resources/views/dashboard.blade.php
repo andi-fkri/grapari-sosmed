@@ -249,25 +249,35 @@
                     </div>
                 </div>
 
-                <!-- Admin Profile Status -->
-                <div class="flex items-center gap-2.5 pl-1">
-                    <div class="w-9 h-9 rounded-full bg-slate-400/80 text-white flex items-center justify-center shadow-inner">
-                        <svg class="w-6 h-6 mt-1" viewBox="0 0 24 24" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div class="leading-tight">
-                        <div class="flex items-center gap-1.5">
-                            <span class="text-[13.5px] font-bold text-slate-800">Admin</span>
-                            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                <!-- Admin Profile Status & Logout -->
+                <div class="flex items-center gap-3 pl-1">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-full bg-slate-400/80 text-white flex items-center justify-center shadow-inner">
+                            <svg class="w-6 h-6 mt-1" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <div class="flex items-center gap-1.5 mt-0.5">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
-                            <span class="text-[11.5px] font-medium text-slate-500">Online</span>
+                        <div class="leading-tight">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[13.5px] font-bold text-slate-800">{{ session('grapari_user', 'Admin') }}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 mt-0.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+                                <span class="text-[11.5px] font-medium text-slate-500">Online</span>
+                            </div>
                         </div>
                     </div>
+
+                    <form action="{{ route('logout') }}" method="POST" class="pl-1 border-l border-slate-200">
+                        @csrf
+                        <button type="submit" title="Keluar dari Dashboard"
+                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-[#E11D2B] text-xs font-bold transition cursor-pointer">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                            </svg>
+                            <span>Keluar</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </header>

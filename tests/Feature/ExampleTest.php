@@ -12,11 +12,43 @@ class ExampleTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_unauthenticated_users_are_redirected_to_login(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_admin_can_login_with_admin_credentials_and_logout(): void
+    {
+        $this->seed();
+
+        $loginPage = $this->get(route('login'));
+        $loginPage->assertOk();
+        $loginPage->assertSee('Masuk ke Dashboard');
+
+        $invalidResponse = $this->post(route('login.submit'), [
+            'username' => 'admin',
+            'password' => 'wrongpassword',
+        ]);
+        $invalidResponse->assertSessionHasErrors('login');
+
+        $validResponse = $this->post(route('login.submit'), [
+            'username' => 'admin',
+            'password' => 'admin',
+        ]);
+        $validResponse->assertRedirect(route('dashboard'));
+        $this->assertTrue(session('grapari_authenticated'));
+
+        $logoutResponse = $this->post(route('logout'));
+        $logoutResponse->assertRedirect(route('login'));
+    }
+
     public function test_the_dashboard_returns_a_successful_response_with_seeded_data(): void
     {
         $this->seed();
 
-        $response = $this->get('/');
+        $response = $this->withSession(['grapari_authenticated' => true])->get('/');
 
         $response->assertStatus(200);
         $response->assertSee('GraPARI Social Media Monitoring');
@@ -40,9 +72,10 @@ class ExampleTest extends TestCase
 
     public function test_it_can_auto_fetch_metrics_from_a_facebook_post_link(): void
     {
-        $response = $this->postJson(route('contents.fetch-link'), [
-            'post_url' => 'https://www.facebook.com/marketplace/item/1148920394817263/',
-        ]);
+        $response = $this->withSession(['grapari_authenticated' => true])
+            ->postJson(route('contents.fetch-link'), [
+                'post_url' => 'https://www.facebook.com/marketplace/item/1148920394817263/',
+            ]);
 
         $response->assertOk()
             ->assertJson([
@@ -80,10 +113,11 @@ class ExampleTest extends TestCase
 
         $fbUrl = 'https://www.facebook.com/share/p/19xKmLpQ7B/';
 
-        $response = $this->post(route('contents.store'), [
-            'grapari_id' => $grapari->id,
-            'post_url' => $fbUrl,
-        ]);
+        $response = $this->withSession(['grapari_authenticated' => true])
+            ->post(route('contents.store'), [
+                'grapari_id' => $grapari->id,
+                'post_url' => $fbUrl,
+            ]);
 
         $response->assertRedirect(route('dashboard', ['grapari' => $grapari->id]));
 
@@ -127,7 +161,8 @@ class ExampleTest extends TestCase
             ),
         ]);
 
-        $response = $this->postJson(route('contents.sync-all'));
+        $response = $this->withSession(['grapari_authenticated' => true])
+            ->postJson(route('contents.sync-all'));
 
         $response->assertOk()
             ->assertJson([
