@@ -1555,11 +1555,13 @@
         }
         if (latestPost) {
             document.getElementById('featured-title').textContent = latestPost.title;
+            document.getElementById('featured-date').textContent = latestPost.published_display || '-';
             document.getElementById('featured-likes').textContent = latestPost.likes;
             document.getElementById('featured-comments').textContent = latestPost.comments;
             document.getElementById('featured-chats').textContent = latestPost.direct_chats;
         } else {
             document.getElementById('featured-title').textContent = `Belum ada konten untuk ${grapari.name}`;
+            document.getElementById('featured-date').textContent = '-';
             document.getElementById('featured-likes').textContent = 0;
             document.getElementById('featured-comments').textContent = 0;
             document.getElementById('featured-chats').textContent = 0;
@@ -1854,6 +1856,9 @@
                         }
                     }
                     document.getElementById('featured-title').textContent = fc.title;
+                    if (fc.published_display) {
+                        document.getElementById('featured-date').textContent = fc.published_display;
+                    }
                     document.getElementById('featured-likes').textContent = fc.likes;
                     document.getElementById('featured-comments').textContent = fc.comments;
                     document.getElementById('featured-chats').textContent = fc.direct_chats;
