@@ -767,7 +767,7 @@
                         @endif
                         <button type="button" onclick="openAddContentModal(currentSelectedGrapariId)"
                             class="pill-active-red px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer">
-                            <span>+ Tambah Konten Cabang Ini</span>
+                            <span>+ Tambah Konten</span>
                         </button>
                     </div>
                 </div>
@@ -808,7 +808,7 @@
                             <h3 class="text-base font-extrabold text-slate-800">
                                 Grafik Line Konten — <span id="chart-grapari-name" class="text-[#E11D2B]">GraPARI Manado</span>
                             </h3>
-                            <p class="text-xs text-slate-500">Perkembangan jumlah Likes, Komentar, dan Share pada cabang ini</p>
+                            <p class="text-xs text-slate-500">Perkembangan jumlah Likes, Komentar, dan Share</p>
                         </div>
                     </div>
 
@@ -837,7 +837,7 @@
                         <h3 class="text-base font-extrabold text-slate-900">
                             Daftar Konten — <span id="list-grapari-name" class="text-[#E11D2B]">GraPARI Manado</span>
                         </h3>
-                        <p class="text-xs text-slate-500">Menampilkan seluruh konten Facebook Marketplace yang diposting oleh cabang ini.</p>
+                        <p class="text-xs text-slate-500">Menampilkan seluruh konten Facebook Marketplace yang telah ditambahkan.</p>
                     </div>
                     <input type="text" id="searchContentInput" onkeyup="filterContentCards()" placeholder="Cari judul konten..."
                         class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-red-500">
@@ -922,7 +922,7 @@
                 <!-- Empty State for Selected GraPARI -->
                 <div id="grapariEmptyContentState" class="hidden py-10 text-center bg-slate-50/70 rounded-2xl border border-dashed border-slate-200 mt-4">
                     <p id="grapariEmptyTitle" class="text-sm font-bold text-slate-700">Belum ada konten untuk GraPARI ini</p>
-                    <p class="text-xs text-slate-500 mt-1">Klik tombol "+ Tambah Konten Cabang Ini" untuk menempelkan link postingan Facebook.</p>
+                    <p class="text-xs text-slate-500 mt-1">Klik tombol "+ Tambah Konten" untuk menempelkan link postingan Facebook.</p>
                 </div>
             </div>
         </section>
