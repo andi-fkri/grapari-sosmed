@@ -136,35 +136,15 @@
             </nav>
         </div>
 
-        <!-- Bottom IndiHome Fiber Branding + Decorative Red Wave -->
+        <!-- Bottom Telkomsel Hashtag Branding + Decorative Red Wave -->
         <div class="relative pt-12 pb-28 px-5">
-            <!-- IndiHome Fiber Logo Recreation -->
             <div class="relative z-10 text-center">
-                <div class="inline-flex flex-col items-end">
-                    <div class="flex items-baseline tracking-tight leading-none">
-                        <span class="text-[26px] font-extrabold text-[#E11D2B]">IndiH</span>
-                        <!-- Special 'o' with house roof accent -->
-                        <span class="relative inline-block text-[26px] font-extrabold text-slate-500 mx-[0.5px]">
-                            <svg class="w-4 h-2.5 absolute -top-2 left-1/2 -translate-x-1/2 text-[#E11D2B]" viewBox="0 0 20 10" fill="currentColor">
-                                <path d="M10 0L0 8h3l7-5.5L17 8h3L10 0z"/>
-                            </svg>
-                            o
-                        </span>
-                        <span class="text-[26px] font-extrabold text-slate-500">me</span>
-                    </div>
-                    <div class="flex items-center gap-1 -mt-0.5">
-                        <span class="text-[11px] font-bold text-[#E11D2B] tracking-wide">Fiber</span>
-                        <div class="flex items-center gap-[2px] skew-x-[-22deg]">
-                            <span class="w-[3px] h-2.5 bg-[#E11D2B] inline-block"></span>
-                            <span class="w-[3px] h-2.5 bg-[#E11D2B] inline-block"></span>
-                            <span class="w-[3px] h-2.5 bg-slate-400 inline-block"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <p class="mt-3 text-[12.5px] italic font-semibold text-slate-700 leading-tight">
-                    Semakin Dekat<br>
-                    Dengan yang Anda Cinta
+                <span class="inline-block px-3 py-1 rounded-full bg-red-50 border border-red-100 text-[11px] font-extrabold text-[#E11D2B] tracking-wide">
+                    #MelayaniSepenuhHati
+                </span>
+                <p class="mt-2.5 text-[14px] italic font-extrabold text-slate-700 leading-snug">
+                    Melayani<br>
+                    Sepenuh Hati
                 </p>
             </div>
 

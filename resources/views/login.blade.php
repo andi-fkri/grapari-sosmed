@@ -70,7 +70,7 @@
                 </svg>
             </div>
 
-            <span class="block text-xs font-extrabold uppercase tracking-widest text-[#E11D2B] mt-3">Telkomsel • IndiHome</span>
+            <span class="block text-xs font-extrabold tracking-wide text-[#E11D2B] mt-3">#MelayaniSepenuhHati</span>
             <h1 class="text-xl font-extrabold text-slate-900 mt-1">GraPARI Social Media Monitoring</h1>
             <p class="text-xs font-medium text-slate-500 mt-1">Cluster Northern Manado | Facebook Marketplace</p>
         </div>
