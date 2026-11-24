@@ -82,8 +82,8 @@
         class="no-print fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-2xs hidden lg:hidden transition-opacity"></div>
 
     <!-- ==================== LEFT SIDEBAR ==================== -->
-    <aside id="appSidebar"
-        class="no-print fixed inset-y-0 left-0 z-50 w-[250px] -translate-x-full lg:translate-x-0 lg:static lg:w-[230px] shrink-0 bg-white/98 border-r border-slate-200/80 flex flex-col justify-between overflow-y-auto lg:overflow-hidden select-none transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none">
+    <aside id="appSidebar" style="background-color: #FFFFFF;"
+        class="no-print fixed inset-y-0 left-0 z-50 w-[250px] -translate-x-full lg:translate-x-0 lg:static lg:w-[230px] shrink-0 bg-white border-r border-slate-200/80 flex flex-col justify-between overflow-y-auto lg:overflow-hidden select-none transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none">
         <!-- Top Brand + Navigation -->
         <div>
             <!-- Telkomsel Logo Header -->
@@ -215,7 +215,7 @@
     </aside>
 
     <!-- ==================== MAIN CONTENT AREA ==================== -->
-    <div class="flex-1 flex flex-col min-w-0 px-3.5 sm:px-6 py-4 sm:py-5 pb-24 lg:pb-6">
+    <div class="flex-1 flex flex-col min-w-0 px-3.5 sm:px-6 py-4 sm:py-5">
 
         <!-- TOP HEADER BAR -->
         <header class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-3.5 sm:gap-4 pb-4 sm:pb-5">
@@ -1053,72 +1053,6 @@
 
     </div>
 </div>
-
-<!-- ==================== MOBILE BOTTOM NAVIGATION BAR (ANDROID & IPHONE) ==================== -->
-<nav class="no-print lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/90 px-3 pt-2 safe-bottom-nav shadow-[0_-4px_20px_-4px_rgba(15,23,42,0.08)]">
-    @if(!empty($isBranchUser) && !empty($branchGrapari))
-        <div class="grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
-            <button type="button" onclick="openGrapariDetail({{ $branchGrapari->id }})"
-                class="flex flex-col items-center justify-center py-1 text-[#E11D2B] font-bold text-[10.5px]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-                    <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
-                </svg>
-                <span class="mt-0.5 truncate">{{ $branchGrapari->short_name }}</span>
-            </button>
-
-            <button type="button" onclick="openAddContentModal({{ $branchGrapari->id }})"
-                class="col-span-2 pill-active-red py-2 px-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md">
-                <span>+ Tambah Konten</span>
-            </button>
-
-            <button type="button" onclick="runAutoSyncNow()"
-                class="flex flex-col items-center justify-center py-1 text-slate-600 hover:text-emerald-600 font-semibold text-[10.5px]">
-                <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                </svg>
-                <span class="mt-0.5">Auto-Sync</span>
-            </button>
-        </div>
-    @else
-        <div class="grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
-            <button type="button" onclick="switchTab('dashboard')"
-                class="flex flex-col items-center justify-center py-1 text-slate-700 hover:text-[#E11D2B] font-bold text-[10.5px]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-                    <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
-                </svg>
-                <span class="mt-0.5">Dashboard</span>
-            </button>
-
-            <button type="button" onclick="openAddContentModal(currentSelectedGrapariId)"
-                class="flex flex-col items-center justify-center py-1 text-[#E11D2B] font-extrabold text-[10.5px]">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                <span class="mt-0.5">+ Konten</span>
-            </button>
-
-            <button type="button" onclick="switchTab('laporan')"
-                class="flex flex-col items-center justify-center py-1 text-slate-600 hover:text-[#E11D2B] font-semibold text-[10.5px]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2.5" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m7 14 3.5-3.5 2.5 2.5L17 9" />
-                </svg>
-                <span class="mt-0.5">Laporan</span>
-            </button>
-
-            <button type="button" onclick="switchTab('pengaturan')"
-                class="flex flex-col items-center justify-center py-1 text-slate-600 hover:text-[#E11D2B] font-semibold text-[10.5px]">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="3" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" />
-                </svg>
-                <span class="mt-0.5">Pengaturan</span>
-            </button>
-        </div>
-    @endif
-</nav>
 
 <!-- ==================== MODAL TAMBAH KONTEN BARU ==================== -->
 <div id="modalAddContent" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
