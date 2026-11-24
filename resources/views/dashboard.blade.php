@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>GraPARI Social Media Monitoring - Telkomsel Northern Manado</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -69,26 +69,38 @@
         @media print {
             .no-print { display: none !important; }
         }
+        .safe-bottom-nav {
+            padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-red-600 selection:text-white">
 
-<div class="dashboard-shell flex min-h-screen">
+<div class="dashboard-shell flex min-h-screen relative">
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="mobileSidebarBackdrop" onclick="closeMobileSidebar()"
+        class="no-print fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-2xs hidden lg:hidden transition-opacity"></div>
+
     <!-- ==================== LEFT SIDEBAR ==================== -->
-    <aside class="no-print w-[230px] shrink-0 bg-white/95 border-r border-slate-200/80 flex flex-col justify-between relative overflow-hidden select-none">
+    <aside id="appSidebar"
+        class="no-print fixed inset-y-0 left-0 z-50 w-[250px] -translate-x-full lg:translate-x-0 lg:static lg:w-[230px] shrink-0 bg-white/98 border-r border-slate-200/80 flex flex-col justify-between overflow-y-auto lg:overflow-hidden select-none transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none">
         <!-- Top Brand + Navigation -->
         <div>
             <!-- Telkomsel Logo Header -->
-            <div class="px-7 pt-7 pb-6">
+            <div class="px-6 lg:px-7 pt-6 lg:pt-7 pb-5 lg:pb-6 flex items-center justify-between">
                 <a href="{{ route('dashboard') }}" class="inline-flex items-center group">
-                    <span class="text-[27px] font-extrabold tracking-tight text-[#E11D2B] group-hover:opacity-90 transition">Telkomsel</span>
+                    <span class="text-[26px] lg:text-[27px] font-extrabold tracking-tight text-[#E11D2B] group-hover:opacity-90 transition">Telkomsel</span>
                 </a>
+                <button type="button" onclick="closeMobileSidebar()"
+                    class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 flex items-center justify-center font-bold text-lg">
+                    &times;
+                </button>
             </div>
 
             <!-- Navigation Menu -->
             <nav class="px-3.5 space-y-1.5 mt-1">
                 @if(!empty($isBranchUser) && !empty($branchGrapari))
-                    <button type="button" onclick="openGrapariDetail({{ $branchGrapari->id }})" id="nav-branch-dashboard"
+                    <button type="button" onclick="openGrapariDetail({{ $branchGrapari->id }}); closeMobileSidebar();" id="nav-branch-dashboard"
                         class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 nav-active cursor-pointer">
                         <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -97,7 +109,7 @@
                         <span>Dashboard {{ $branchGrapari->short_name }}</span>
                     </button>
 
-                    <button type="button" onclick="openAddContentModal({{ $branchGrapari->id }})" id="nav-branch-add"
+                    <button type="button" onclick="openAddContentModal({{ $branchGrapari->id }}); closeMobileSidebar();" id="nav-branch-add"
                         class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 text-slate-600 hover:bg-slate-100/80 cursor-pointer">
                         <svg class="w-5 h-5 shrink-0 text-[#E11D2B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -105,7 +117,7 @@
                         <span>Tambah Konten</span>
                     </button>
                 @else
-                    <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard"
+                    <button type="button" onclick="switchTab('dashboard'); closeMobileSidebar();" id="nav-dashboard"
                         class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 {{ $activeTab === 'dashboard' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
                         <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -114,7 +126,7 @@
                         <span>Dashboard</span>
                     </button>
 
-                    <button type="button" onclick="switchTab('laporan')" id="nav-laporan"
+                    <button type="button" onclick="switchTab('laporan'); closeMobileSidebar();" id="nav-laporan"
                         class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 border-b border-slate-100 {{ $activeTab === 'laporan' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
                         <svg class="w-5 h-5 shrink-0 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="2.5" />
@@ -124,7 +136,7 @@
                         <span>Laporan</span>
                     </button>
 
-                    <button type="button" onclick="switchTab('pengaturan')" id="nav-pengaturan"
+                    <button type="button" onclick="switchTab('pengaturan'); closeMobileSidebar();" id="nav-pengaturan"
                         class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-[14px] font-semibold transition-all duration-200 {{ $activeTab === 'pengaturan' ? 'nav-active' : 'text-slate-600 hover:bg-slate-100/80' }}">
                         <svg class="w-5 h-5 shrink-0 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" />
@@ -203,15 +215,24 @@
     </aside>
 
     <!-- ==================== MAIN CONTENT AREA ==================== -->
-    <div class="flex-1 flex flex-col min-w-0 px-6 py-5">
+    <div class="flex-1 flex flex-col min-w-0 px-3.5 sm:px-6 py-4 sm:py-5 pb-24 lg:pb-6">
 
         <!-- TOP HEADER BAR -->
-        <header class="flex flex-wrap items-center justify-between gap-4 pb-5">
-            <!-- Left: Telkomsel T Hexagon Badge + Title & Subtitle -->
-            <div class="flex items-center gap-3.5">
+        <header class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-3.5 sm:gap-4 pb-4 sm:pb-5">
+            <!-- Left: Mobile Menu Button + Telkomsel T Hexagon Badge + Title & Subtitle -->
+            <div class="flex items-center gap-2.5 sm:gap-3.5 w-full sm:w-auto">
+                <!-- Mobile Hamburger Button -->
+                <button type="button" onclick="openMobileSidebar()"
+                    aria-label="Buka Menu"
+                    class="no-print lg:hidden w-10 h-10 rounded-xl bg-white border border-slate-200/90 text-slate-700 hover:text-[#E11D2B] flex items-center justify-center shrink-0 shadow-2xs">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+
                 <!-- Telkomsel Hexagonal Portal 'T' Badge -->
-                <div class="w-12 h-12 shrink-0 flex items-center justify-center">
-                    <svg class="w-12 h-12 drop-shadow-sm" viewBox="0 0 64 64" fill="none">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 flex items-center justify-center">
+                    <svg class="w-10 h-10 sm:w-12 sm:h-12 drop-shadow-sm" viewBox="0 0 64 64" fill="none">
                         <defs>
                             <linearGradient id="hexMain" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
                                 <stop offset="0%" stop-color="#DC2626"/>
@@ -236,64 +257,66 @@
                         <path d="M22 22H42V27.5H35V43H29V27.5H22V22Z" fill="white" />
                     </svg>
                 </div>
-                <div>
-                    <h1 class="text-[23px] font-extrabold text-slate-900 tracking-tight leading-tight">
+                <div class="min-w-0 flex-1">
+                    <h1 class="text-[17px] sm:text-[23px] font-extrabold text-slate-900 tracking-tight leading-tight truncate">
                         GraPARI Social Media Monitoring
                     </h1>
-                    <p class="text-[13.5px] font-medium text-slate-500 mt-0.5">
+                    <p class="text-[11.5px] sm:text-[13.5px] font-medium text-slate-500 mt-0.5 truncate">
                         Cluster Northern Manado <span class="mx-1 text-slate-400">|</span> Facebook Marketplace
                     </p>
                 </div>
             </div>
 
             <!-- Right: Auto-Sync Indicator, Date Picker Dropdown & Admin Profile -->
-            <div class="flex items-center gap-3.5">
-                <!-- Auto-Sync Indicator -->
-                <button type="button" id="autoSyncBtn" onclick="runAutoSyncNow()"
-                    title="Sinkronisasi otomatis jumlah Like, Komentar, dan Share dari link Facebook"
-                    class="flex items-center gap-2 bg-white border border-emerald-200/90 rounded-xl px-3.5 py-2 shadow-xs hover:border-emerald-300 transition cursor-pointer">
-                    <span class="relative flex h-2.5 w-2.5">
-                        <span id="autoSyncPulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                    </span>
-                    <svg id="autoSyncIcon" class="w-3.5 h-3.5 text-emerald-600 shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                    </svg>
-                    <span class="text-[12.5px] font-bold text-slate-700">Auto-Sync</span>
-                </button>
-
-                <!-- Interactive Date Range Selector -->
-                <div class="relative">
-                    <div class="flex items-center gap-2.5 bg-white border border-slate-200/90 rounded-xl px-3.5 py-2 shadow-xs hover:border-slate-300 transition">
-                        <svg class="w-4 h-4 text-slate-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" />
-                            <path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18" />
-                            <rect x="7" y="14" width="3" height="3" rx="0.5" fill="currentColor" />
+            <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2 sm:gap-3.5 w-full sm:w-auto">
+                <div class="flex items-center gap-2">
+                    <!-- Auto-Sync Indicator -->
+                    <button type="button" id="autoSyncBtn" onclick="runAutoSyncNow()"
+                        title="Sinkronisasi otomatis jumlah Like, Komentar, dan Share dari link Facebook"
+                        class="flex items-center gap-1.5 sm:gap-2 bg-white border border-emerald-200/90 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-xs hover:border-emerald-300 transition cursor-pointer">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span id="autoSyncPulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <svg id="autoSyncIcon" class="w-3.5 h-3.5 text-emerald-600 shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                         </svg>
-                        <select id="periodSelector" onchange="handlePeriodChange(this.value)"
-                            class="text-[13px] font-semibold text-slate-700 bg-transparent focus:outline-none cursor-pointer pr-1">
-                            <option value="nov-full">01 – {{ $dailyMetrics->last()->label ?? '30 Nov' }} {{ now()->year }}</option>
-                            <option value="oct-full">01 – 31 Okt {{ now()->year }}</option>
-                            <option value="sep-full">01 – 30 Sep {{ now()->year }}</option>
-                        </select>
+                        <span class="text-[11.5px] sm:text-[12.5px] font-bold text-slate-700">Auto-Sync</span>
+                    </button>
+
+                    <!-- Interactive Date Range Selector -->
+                    <div class="relative">
+                        <div class="flex items-center gap-1.5 sm:gap-2.5 bg-white border border-slate-200/90 rounded-xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-xs hover:border-slate-300 transition">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18" />
+                                <rect x="7" y="14" width="3" height="3" rx="0.5" fill="currentColor" />
+                            </svg>
+                            <select id="periodSelector" onchange="handlePeriodChange(this.value)"
+                                class="text-[11.5px] sm:text-[13px] font-semibold text-slate-700 bg-transparent focus:outline-none cursor-pointer pr-1">
+                                <option value="nov-full">01 – {{ $dailyMetrics->last()->label ?? '30 Nov' }} {{ now()->year }}</option>
+                                <option value="oct-full">01 – 31 Okt {{ now()->year }}</option>
+                                <option value="sep-full">01 – 30 Sep {{ now()->year }}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Admin Profile Status & Logout -->
-                <div class="flex items-center gap-3 pl-1">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-9 h-9 rounded-full bg-slate-400/80 text-white flex items-center justify-center shadow-inner">
-                            <svg class="w-6 h-6 mt-1" viewBox="0 0 24 24" fill="currentColor">
+                <div class="flex items-center gap-2.5 sm:gap-3 pl-1">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-400/80 text-white flex items-center justify-center shadow-inner shrink-0">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6 mt-1" viewBox="0 0 24 24" fill="currentColor">
                                 <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
                             </svg>
                         </div>
                         <div class="leading-tight">
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-[13.5px] font-bold text-slate-800">{{ session('grapari_user', 'Admin') }}</span>
+                            <div class="flex items-center gap-1">
+                                <span class="text-[12.5px] sm:text-[13.5px] font-bold text-slate-800 truncate max-w-[120px] sm:max-w-none">{{ session('grapari_user', 'Admin') }}</span>
                             </div>
                             <div class="flex items-center gap-1.5 mt-0.5">
                                 <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
-                                <span class="text-[11.5px] font-medium text-slate-500">Online</span>
+                                <span class="text-[11px] font-medium text-slate-500">Online</span>
                             </div>
                         </div>
                     </div>
@@ -301,11 +324,11 @@
                     <form action="{{ route('logout') }}" method="POST" class="pl-1 border-l border-slate-200">
                         @csrf
                         <button type="submit" title="Keluar dari Dashboard"
-                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-[#E11D2B] text-xs font-bold transition cursor-pointer">
+                            class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-[#E11D2B] text-xs font-bold transition cursor-pointer">
                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                             </svg>
-                            <span>Keluar</span>
+                            <span class="hidden sm:inline">Keluar</span>
                         </button>
                     </form>
                 </div>
@@ -748,82 +771,83 @@
         <!-- ==================== DRILL-DOWN VIEW: DETAIL KONTEN & GRAFIK LINE PER GRAPARI ==================== -->
         <section id="tab-grapari-detail" class="{{ !empty($isBranchUser) ? 'block' : 'hidden' }} space-y-4">
             <!-- Top Header & Branch Switcher Card -->
-            <div class="card-glass rounded-2xl p-5">
-                <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
-                    <div class="flex items-center gap-3">
+            <div class="card-glass rounded-2xl p-4 sm:p-5">
+                <div class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-3.5 pb-4 border-b border-slate-100">
+                    <div class="flex items-start sm:items-center gap-3 w-full sm:w-auto">
                         @if(empty($isBranchUser))
                             <button type="button" onclick="closeGrapariDetail()"
-                                class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 transition cursor-pointer shadow-2xs">
+                                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 transition cursor-pointer shadow-2xs shrink-0">
                                 <span>←</span>
-                                <span>Kembali ke Dashboard</span>
+                                <span class="hidden sm:inline">Kembali ke Dashboard</span>
+                                <span class="sm:hidden">Kembali</span>
                             </button>
                         @endif
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h2 id="detail-grapari-title" class="text-lg font-extrabold text-slate-900">{{ $branchGrapari->name ?? 'GraPARI Manado' }}</h2>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <h2 id="detail-grapari-title" class="text-base sm:text-lg font-extrabold text-slate-900">{{ $branchGrapari->name ?? 'GraPARI Manado' }}</h2>
                                 <span id="detail-grapari-rank-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-[#E11D2B]">Rank #{{ $branchGrapari->rank ?? 1 }}</span>
                             </div>
-                            <p id="detail-grapari-address" class="text-xs text-slate-500 mt-0.5">{{ $branchGrapari->address ?? 'Jl. Piere Tendean (Boulevard), Sario Tumpaan, Kota Manado' }}</p>
+                            <p id="detail-grapari-address" class="text-xs text-slate-500 mt-0.5 line-clamp-2">{{ $branchGrapari->address ?? 'Jl. Piere Tendean (Boulevard), Sario Tumpaan, Kota Manado' }}</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-2.5">
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
                         @if(empty($isBranchUser))
                             <select id="detailGrapariSwitcher" onchange="openGrapariDetail(Number(this.value))"
-                                class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 focus:outline-none focus:border-red-500 cursor-pointer">
+                                class="flex-1 sm:flex-none px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 focus:outline-none focus:border-red-500 cursor-pointer">
                                 @foreach($graparis as $g)
                                     <option value="{{ $g->id }}">{{ $g->name }}</option>
                                 @endforeach
                             </select>
                         @endif
                         <button type="button" onclick="openAddContentModal(currentSelectedGrapariId)"
-                            class="pill-active-red px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer">
+                            class="pill-active-red flex-1 sm:flex-none justify-center px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer">
                             <span>+ Tambah Konten</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- 5 Branch Summary KPI Boxes -->
-                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-4">
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3 mt-4">
                     <div class="p-3 rounded-xl bg-purple-50/70 border border-purple-100 text-center">
                         <span class="text-[11px] font-semibold text-slate-500 block">Total Konten</span>
-                        <span id="detail-kpi-contents" class="text-xl font-extrabold text-purple-700 mt-0.5 block">0</span>
+                        <span id="detail-kpi-contents" class="text-lg sm:text-xl font-extrabold text-purple-700 mt-0.5 block">0</span>
                     </div>
                     <div class="p-3 rounded-xl bg-blue-50/70 border border-blue-100 text-center">
                         <span class="text-[11px] font-semibold text-slate-500 block">Total Likes</span>
-                        <span id="detail-kpi-likes" class="text-xl font-extrabold text-blue-700 mt-0.5 block">0</span>
+                        <span id="detail-kpi-likes" class="text-lg sm:text-xl font-extrabold text-blue-700 mt-0.5 block">0</span>
                     </div>
                     <div class="p-3 rounded-xl bg-orange-50/70 border border-orange-100 text-center">
                         <span class="text-[11px] font-semibold text-slate-500 block">Total Komentar</span>
-                        <span id="detail-kpi-comments" class="text-xl font-extrabold text-orange-600 mt-0.5 block">0</span>
+                        <span id="detail-kpi-comments" class="text-lg sm:text-xl font-extrabold text-orange-600 mt-0.5 block">0</span>
                     </div>
                     <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 text-center">
                         <span class="text-[11px] font-semibold text-slate-500 block">Total Share</span>
-                        <span id="detail-kpi-shares" class="text-xl font-extrabold text-emerald-700 mt-0.5 block">0</span>
+                        <span id="detail-kpi-shares" class="text-lg sm:text-xl font-extrabold text-emerald-700 mt-0.5 block">0</span>
                     </div>
                     <div class="p-3 rounded-xl bg-red-50/70 border border-red-100 text-center col-span-2 sm:col-span-1">
                         <span class="text-[11px] font-semibold text-slate-500 block">Engagement Rate</span>
-                        <span id="detail-kpi-rate" class="text-xl font-extrabold text-[#E11D2B] mt-0.5 block">0.0%</span>
+                        <span id="detail-kpi-rate" class="text-lg sm:text-xl font-extrabold text-[#E11D2B] mt-0.5 block">0.0%</span>
                     </div>
                 </div>
             </div>
 
             <!-- Grafik Line Konten per GraPARI -->
-            <div class="card-glass rounded-2xl p-5">
-                <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+            <div class="card-glass rounded-2xl p-4 sm:p-5">
+                <div class="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-slate-100">
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-[#E11D2B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                        <svg class="w-5 h-5 text-[#E11D2B] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
                         </svg>
                         <div>
-                            <h3 class="text-base font-extrabold text-slate-800">
+                            <h3 class="text-sm sm:text-base font-extrabold text-slate-800">
                                 Grafik Line Konten — <span id="chart-grapari-name" class="text-[#E11D2B]">GraPARI Manado</span>
                             </h3>
-                            <p class="text-xs text-slate-500">Perkembangan jumlah Likes, Komentar, dan Share</p>
+                            <p class="text-[11.5px] sm:text-xs text-slate-500">Perkembangan jumlah Likes, Komentar, dan Share</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-4 text-xs font-semibold text-slate-600">
+                    <div class="flex items-center gap-3 sm:gap-4 text-[11.5px] sm:text-xs font-semibold text-slate-600">
                         <span class="flex items-center gap-1.5">
                             <span class="w-2.5 h-2.5 rounded-full bg-[#2563EB] inline-block"></span> Likes
                         </span>
@@ -836,22 +860,22 @@
                     </div>
                 </div>
 
-                <div class="relative h-[240px] w-full mt-4">
+                <div class="relative h-[210px] sm:h-[240px] w-full mt-3 sm:mt-4">
                     <canvas id="grapariDetailLineChart"></canvas>
                 </div>
             </div>
 
             <!-- Daftar Detail Konten Milik GraPARI Tersebut -->
-            <div class="card-glass rounded-2xl p-5">
-                <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div class="card-glass rounded-2xl p-4 sm:p-5">
+                <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
                     <div>
-                        <h3 class="text-base font-extrabold text-slate-900">
+                        <h3 class="text-sm sm:text-base font-extrabold text-slate-900">
                             Daftar Konten — <span id="list-grapari-name" class="text-[#E11D2B]">GraPARI Manado</span>
                         </h3>
-                        <p class="text-xs text-slate-500">Menampilkan seluruh konten Facebook Marketplace yang telah ditambahkan.</p>
+                        <p class="text-[11.5px] sm:text-xs text-slate-500">Menampilkan seluruh konten Facebook Marketplace yang telah ditambahkan.</p>
                     </div>
                     <input type="text" id="searchContentInput" onkeyup="filterContentCards()" placeholder="Cari judul konten..."
-                        class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-red-500">
+                        class="w-full sm:w-64 px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:outline-none focus:border-red-500">
                 </div>
 
                 <div id="contentGridContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
@@ -1030,9 +1054,75 @@
     </div>
 </div>
 
+<!-- ==================== MOBILE BOTTOM NAVIGATION BAR (ANDROID & IPHONE) ==================== -->
+<nav class="no-print lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/90 px-3 pt-2 safe-bottom-nav shadow-[0_-4px_20px_-4px_rgba(15,23,42,0.08)]">
+    @if(!empty($isBranchUser) && !empty($branchGrapari))
+        <div class="grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
+            <button type="button" onclick="openGrapariDetail({{ $branchGrapari->id }})"
+                class="flex flex-col items-center justify-center py-1 text-[#E11D2B] font-bold text-[10.5px]">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                    <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                </svg>
+                <span class="mt-0.5 truncate">{{ $branchGrapari->short_name }}</span>
+            </button>
+
+            <button type="button" onclick="openAddContentModal({{ $branchGrapari->id }})"
+                class="col-span-2 pill-active-red py-2 px-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-md">
+                <span>+ Tambah Konten</span>
+            </button>
+
+            <button type="button" onclick="runAutoSyncNow()"
+                class="flex flex-col items-center justify-center py-1 text-slate-600 hover:text-emerald-600 font-semibold text-[10.5px]">
+                <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+                <span class="mt-0.5">Auto-Sync</span>
+            </button>
+        </div>
+    @else
+        <div class="grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
+            <button type="button" onclick="switchTab('dashboard')"
+                class="flex flex-col items-center justify-center py-1 text-slate-700 hover:text-[#E11D2B] font-bold text-[10.5px]">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                    <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                </svg>
+                <span class="mt-0.5">Dashboard</span>
+            </button>
+
+            <button type="button" onclick="openAddContentModal(currentSelectedGrapariId)"
+                class="flex flex-col items-center justify-center py-1 text-[#E11D2B] font-extrabold text-[10.5px]">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span class="mt-0.5">+ Konten</span>
+            </button>
+
+            <button type="button" onclick="switchTab('laporan')"
+                class="flex flex-col items-center justify-center py-1 text-slate-600 hover:text-[#E11D2B] font-semibold text-[10.5px]">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2.5" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m7 14 3.5-3.5 2.5 2.5L17 9" />
+                </svg>
+                <span class="mt-0.5">Laporan</span>
+            </button>
+
+            <button type="button" onclick="switchTab('pengaturan')"
+                class="flex flex-col items-center justify-center py-1 text-slate-600 hover:text-[#E11D2B] font-semibold text-[10.5px]">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065Z" />
+                </svg>
+                <span class="mt-0.5">Pengaturan</span>
+            </button>
+        </div>
+    @endif
+</nav>
+
 <!-- ==================== MODAL TAMBAH KONTEN BARU ==================== -->
-<div id="modalAddContent" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-100 max-h-[92vh] overflow-y-auto">
+<div id="modalAddContent" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-white rounded-t-3xl sm:rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl border border-slate-100 max-h-[92vh] overflow-y-auto">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
             <div>
                 <h3 class="text-base font-extrabold text-slate-900">Tambah Konten dari Link Facebook</h3>
@@ -1068,14 +1158,14 @@
                     <span class="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">Auto-Read Metrik</span>
                 </div>
 
-                <div class="flex gap-2">
+                <div class="flex flex-col sm:flex-row gap-2">
                     <input type="url" id="inputPostUrl" name="post_url" required
                         onpaste="setTimeout(() => fetchFacebookLinkMetrics(), 80)"
                         oninput="handlePostUrlInput(this.value)"
                         placeholder="https://www.facebook.com/share/p/... atau link postingan FB publik"
-                        class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-red-500">
+                        class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-base sm:text-sm focus:outline-none focus:border-red-500">
                     <button type="button" id="btnFetchLink" onclick="fetchFacebookLinkMetrics()"
-                        class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shrink-0 transition flex items-center gap-1.5 cursor-pointer">
+                        class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shrink-0 transition flex items-center justify-center gap-1.5 cursor-pointer">
                         <span id="btnFetchIcon">🔍</span>
                         <span id="btnFetchText">Baca Link</span>
                     </button>
@@ -1516,6 +1606,21 @@
         }
     });
 
+    // Mobile Sidebar Drawer Controls (Android & iPhone)
+    function openMobileSidebar() {
+        const sidebar = document.getElementById('appSidebar');
+        const backdrop = document.getElementById('mobileSidebarBackdrop');
+        if (sidebar) sidebar.classList.remove('-translate-x-full');
+        if (backdrop) backdrop.classList.remove('hidden');
+    }
+
+    function closeMobileSidebar() {
+        const sidebar = document.getElementById('appSidebar');
+        const backdrop = document.getElementById('mobileSidebarBackdrop');
+        if (sidebar) sidebar.classList.add('-translate-x-full');
+        if (backdrop) backdrop.classList.add('hidden');
+    }
+
     function openAddContentModal(grapariId = null) {
         const select = document.getElementById('modalGrapariSelect');
         if (select && (grapariId || currentSelectedGrapariId)) {
@@ -1531,10 +1636,13 @@
             .reverse();
 
         if (branchContents.length > 0) {
-            // Plot line chart of contents for this GraPARI (each content item along X-axis with its date & title)
+            const isMobile = window.innerWidth < 640;
             const labels = branchContents.map((c, idx) => {
-                const shortTitle = (c.title || 'Konten').substring(0, 18);
                 const datePart = (c.published_display || '').split('•')[0].trim();
+                if (isMobile) {
+                    return `#${idx + 1} (${datePart})`;
+                }
+                const shortTitle = (c.title || 'Konten').substring(0, 18);
                 return `#${idx + 1} ${shortTitle}.. (${datePart})`;
             });
             grapariDetailLineChart.data.labels = labels;
@@ -1542,7 +1650,6 @@
             grapariDetailLineChart.data.datasets[1].data = branchContents.map(c => Number(c.comments));
             grapariDetailLineChart.data.datasets[2].data = branchContents.map(c => Number(c.direct_chats));
         } else {
-            // When 0 contents, show clean monthly baseline at 0
             grapariDetailLineChart.data.labels = dailyMetrics.map(d => d.label);
             grapariDetailLineChart.data.datasets[0].data = dailyMetrics.map(() => 0);
             grapariDetailLineChart.data.datasets[1].data = dailyMetrics.map(() => 0);

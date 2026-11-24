@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Login Admin - GraPARI Social Media Monitoring</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,7 +119,7 @@
                     </span>
                     <input type="text" id="username" name="username" value="{{ old('username') }}" required autofocus
                         placeholder="Masukkan username"
-                        class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 focus:bg-white text-sm font-medium text-slate-800 focus:outline-none focus:border-[#E11D2B] transition">
+                        class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 focus:bg-white text-base sm:text-sm font-medium text-slate-800 focus:outline-none focus:border-[#E11D2B] transition">
                 </div>
             </div>
 
@@ -133,7 +133,7 @@
                     </span>
                     <input type="password" id="password" name="password" required
                         placeholder="Masukkan password"
-                        class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 focus:bg-white text-sm font-medium text-slate-800 focus:outline-none focus:border-[#E11D2B] transition">
+                        class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 focus:bg-white text-base sm:text-sm font-medium text-slate-800 focus:outline-none focus:border-[#E11D2B] transition">
                     <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
                         <svg id="eyeIcon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
