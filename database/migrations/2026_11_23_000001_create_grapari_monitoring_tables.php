@@ -13,7 +13,7 @@ return new class extends Migration
             $table->unsignedInteger('rank')->index();
             $table->string('name');
             $table->string('short_name');
-            $table->string('region')->default('Northern Manado Region');
+            $table->string('region')->default('Cluster Northern Manado');
             $table->string('address')->nullable();
             $table->unsignedInteger('total_contents')->default(0);
             $table->unsignedInteger('likes')->default(0);

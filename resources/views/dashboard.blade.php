@@ -230,7 +230,7 @@
                         GraPARI Social Media Monitoring
                     </h1>
                     <p class="text-[13.5px] font-medium text-slate-500 mt-0.5">
-                        Northern Manado Region <span class="mx-1 text-slate-400">|</span> Facebook Marketplace
+                        Cluster Northern Manado <span class="mx-1 text-slate-400">|</span> Facebook Marketplace
                     </p>
                 </div>
             </div>
@@ -933,7 +933,7 @@
                 <div class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-100">
                     <div>
                         <h2 class="text-lg font-extrabold text-slate-900">Laporan Eksekutif Performa GraPARI</h2>
-                        <p class="text-sm text-slate-500">Rekapitulasi performa Northern Manado Region (Periode 01 – 30 Nov 2026)</p>
+                        <p class="text-sm text-slate-500">Rekapitulasi performa Cluster Northern Manado (Periode 01 – 30 Nov 2026)</p>
                     </div>
                     <div class="flex items-center gap-2.5">
                         <button type="button" onclick="exportTableToCSV()"
@@ -992,7 +992,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Wilayah Operasional</label>
-                            <input type="text" value="Northern Manado Region" readonly class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-700">
+                            <input type="text" value="Cluster Northern Manado" readonly class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-700">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Channel Monitoring</label>
@@ -1570,7 +1570,7 @@
         // Populate Detail Section Header & KPIs
         document.getElementById('detail-grapari-title').textContent = grapari.name;
         document.getElementById('detail-grapari-rank-badge').textContent = `Rank #${grapari.rank}`;
-        document.getElementById('detail-grapari-address').textContent = grapari.address || 'Northern Manado Region';
+        document.getElementById('detail-grapari-address').textContent = grapari.address || 'Cluster Northern Manado';
         document.getElementById('chart-grapari-name').textContent = grapari.name;
         document.getElementById('list-grapari-name').textContent = grapari.name;
 

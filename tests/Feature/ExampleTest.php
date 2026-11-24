@@ -71,7 +71,7 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('GraPARI Social Media Monitoring');
-        $response->assertSee('Northern Manado Region');
+        $response->assertSee('Cluster Northern Manado');
         $response->assertSee('GraPARI Manado');
         $response->assertSee('GraPARI Ternate');
         $response->assertSee('GraPARI Tomohon');

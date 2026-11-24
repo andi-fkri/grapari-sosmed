@@ -72,7 +72,7 @@
 
             <span class="block text-xs font-extrabold uppercase tracking-widest text-[#E11D2B] mt-3">Telkomsel • IndiHome</span>
             <h1 class="text-xl font-extrabold text-slate-900 mt-1">GraPARI Social Media Monitoring</h1>
-            <p class="text-xs font-medium text-slate-500 mt-1">Northern Manado Region | Facebook Marketplace</p>
+            <p class="text-xs font-medium text-slate-500 mt-1">Cluster Northern Manado | Facebook Marketplace</p>
         </div>
 
         @if($errors->has('login'))
@@ -135,7 +135,7 @@
 
         <div class="mt-6 pt-4 border-t border-slate-100 text-center">
             <p class="text-[11.5px] font-medium text-slate-400">
-                &copy; {{ now()->year }} Telkomsel Northern Manado Region
+                &copy; {{ now()->year }} Telkomsel Cluster Northern Manado
             </p>
         </div>
     </div>

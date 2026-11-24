@@ -51,7 +51,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $request->session()->put('grapari_authenticated', true);
             $request->session()->put('grapari_role', 'admin');
-            $request->session()->put('grapari_user', 'Admin Regional');
+            $request->session()->put('grapari_user', 'Admin');
             $request->session()->forget('grapari_branch_id');
 
             return redirect()->route('dashboard');
