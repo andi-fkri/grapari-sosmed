@@ -46,28 +46,7 @@
         <!-- Brand Header -->
         <div class="text-center">
             <div class="w-16 h-16 mx-auto flex items-center justify-center">
-                <svg class="w-16 h-16 drop-shadow-sm" viewBox="0 0 64 64" fill="none">
-                    <defs>
-                        <linearGradient id="hexMain" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#DC2626"/>
-                            <stop offset="55%" stop-color="#E11D2B"/>
-                            <stop offset="100%" stop-color="#F97316"/>
-                        </linearGradient>
-                        <linearGradient id="hexTop" x1="10" y1="4" x2="40" y2="30" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#991B1B"/>
-                            <stop offset="100%" stop-color="#E11D2B"/>
-                        </linearGradient>
-                        <linearGradient id="hexBottom" x1="20" y1="36" x2="56" y2="60" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#EA580C"/>
-                            <stop offset="100%" stop-color="#FACC15"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M32 3L55 17.5V46.5L32 61L9 46.5V17.5L32 3Z" fill="url(#hexMain)" />
-                    <path d="M32 3L55 17.5L32 32L9 17.5L32 3Z" fill="url(#hexTop)" opacity="0.85" />
-                    <path d="M32 32L55 46.5L32 61L9 46.5L32 32Z" fill="url(#hexBottom)" opacity="0.75" />
-                    <circle cx="32" cy="32" r="19" fill="#E11D2B" />
-                    <path d="M22 22H42V27.5H35V43H29V27.5H22V22Z" fill="white" />
-                </svg>
+                <img src="{{ asset('telkomsel-icon.svg') }}" alt="Telkomsel Portal" class="h-16 w-auto drop-shadow-xs">
             </div>
 
             <h1 class="text-xl font-extrabold text-slate-900 mt-3">GraPARI Social Media Monitoring</h1>

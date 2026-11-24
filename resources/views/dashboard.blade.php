@@ -86,10 +86,10 @@
         class="no-print fixed inset-y-0 left-0 z-50 w-[250px] -translate-x-full lg:translate-x-0 lg:static lg:w-[230px] shrink-0 bg-white border-r border-slate-200/80 flex flex-col justify-between overflow-y-auto lg:overflow-hidden select-none transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none">
         <!-- Top Brand + Navigation -->
         <div>
-            <!-- Telkomsel Logo Header -->
+            <!-- Telkomsel Official 2021 Wordmark Logo Header -->
             <div class="px-6 lg:px-7 pt-6 lg:pt-7 pb-5 lg:pb-6 flex items-center justify-between">
                 <a href="{{ route('dashboard') }}" class="inline-flex items-center group">
-                    <span class="text-[26px] lg:text-[27px] font-extrabold tracking-tight text-[#E11D2B] group-hover:opacity-90 transition">Telkomsel</span>
+                    <img src="{{ asset('telkomsel-logo.svg') }}" alt="Telkomsel" class="h-6 lg:h-[26px] w-auto group-hover:opacity-90 transition">
                 </a>
                 <button type="button" onclick="closeMobileSidebar()"
                     class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 flex items-center justify-center font-bold text-lg">
@@ -230,32 +230,9 @@
                     </svg>
                 </button>
 
-                <!-- Telkomsel Hexagonal Portal 'T' Badge -->
-                <div class="w-10 h-10 sm:w-12 sm:h-12 shrink-0 flex items-center justify-center">
-                    <svg class="w-10 h-10 sm:w-12 sm:h-12 drop-shadow-sm" viewBox="0 0 64 64" fill="none">
-                        <defs>
-                            <linearGradient id="hexMain" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" stop-color="#DC2626"/>
-                                <stop offset="55%" stop-color="#E11D2B"/>
-                                <stop offset="100%" stop-color="#F97316"/>
-                            </linearGradient>
-                            <linearGradient id="hexTop" x1="10" y1="4" x2="40" y2="30" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" stop-color="#991B1B"/>
-                                <stop offset="100%" stop-color="#E11D2B"/>
-                            </linearGradient>
-                            <linearGradient id="hexBottom" x1="20" y1="36" x2="56" y2="60" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" stop-color="#EA580C"/>
-                                <stop offset="100%" stop-color="#FACC15"/>
-                            </linearGradient>
-                        </defs>
-                        <!-- Faceted Hexagon Shape -->
-                        <path d="M32 3L55 17.5V46.5L32 61L9 46.5V17.5L32 3Z" fill="url(#hexMain)" />
-                        <path d="M32 3L55 17.5L32 32L9 17.5L32 3Z" fill="url(#hexTop)" opacity="0.85" />
-                        <path d="M32 32L55 46.5L32 61L9 46.5L32 32Z" fill="url(#hexBottom)" opacity="0.75" />
-                        <circle cx="32" cy="32" r="19" fill="#E11D2B" />
-                        <!-- White Bold T -->
-                        <path d="M22 22H42V27.5H35V43H29V27.5H22V22Z" fill="white" />
-                    </svg>
+                <!-- Official Telkomsel 2021+ Portal Icon -->
+                <div class="w-10 h-11 sm:w-11 sm:h-12 shrink-0 flex items-center justify-center">
+                    <img src="{{ asset('telkomsel-icon.svg') }}" alt="Telkomsel Portal" class="h-10 sm:h-12 w-auto drop-shadow-xs">
                 </div>
                 <div class="min-w-0 flex-1">
                     <h1 class="text-[17px] sm:text-[23px] font-extrabold text-slate-900 tracking-tight leading-tight truncate">
