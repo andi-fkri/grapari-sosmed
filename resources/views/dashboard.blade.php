@@ -136,16 +136,47 @@
             </nav>
         </div>
 
-        <!-- Bottom Telkomsel Hashtag Branding + Decorative Red Wave -->
-        <div class="relative pt-12 pb-28 px-5">
-            <div class="relative z-10 text-center">
-                <span class="inline-block px-3 py-1 rounded-full bg-red-50 border border-red-100 text-[11px] font-extrabold text-[#E11D2B] tracking-wide">
+        <!-- Bottom Telkomsel Official Product Logos (IndiHome, Orbit, Halo) + Decorative Red Wave -->
+        <div class="relative pt-8 pb-28 px-4">
+            <div class="relative z-10 flex flex-col items-center space-y-3">
+                <!-- 1. Latest IndiHome (by Telkomsel) Unified Brand Logo -->
+                <div class="w-full py-2 px-3 rounded-xl bg-slate-50/90 border border-slate-200/70 flex flex-col items-center justify-center shadow-2xs">
+                    <div class="inline-flex flex-col items-end leading-none">
+                        <span class="text-[21px] font-black tracking-tight text-[#ED0226]" style="letter-spacing: -0.03em;">
+                            IndiHome
+                        </span>
+                        <span class="text-[8.5px] font-bold text-[#001A41] tracking-normal mt-0.5">
+                            by <strong class="font-extrabold text-[#ED0226]">Telkomsel</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 2 & 3. Latest Telkomsel Orbit & Telkomsel Halo Unified Sub-Brand Lockups -->
+                <div class="w-full grid grid-cols-2 gap-2">
+                    <!-- Telkomsel Orbit -->
+                    <div class="py-2 px-2.5 rounded-xl bg-slate-50/90 border border-slate-200/70 flex flex-col items-center justify-center shadow-2xs">
+                        <div class="inline-flex flex-col items-start leading-none">
+                            <span class="text-[8px] font-extrabold text-[#001A41] tracking-tight">Telkomsel</span>
+                            <span class="text-[17px] font-black text-[#ED0226] tracking-tight -mt-0.5" style="letter-spacing: -0.03em;">
+                                Orbit
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Telkomsel Halo -->
+                    <div class="py-2 px-2.5 rounded-xl bg-slate-50/90 border border-slate-200/70 flex flex-col items-center justify-center shadow-2xs">
+                        <div class="inline-flex flex-col items-start leading-none">
+                            <span class="text-[8px] font-extrabold text-[#001A41] tracking-tight">Telkomsel</span>
+                            <span class="text-[17px] font-black text-[#ED0226] tracking-tight -mt-0.5" style="letter-spacing: -0.03em;">
+                                Halo
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="text-[10.5px] font-bold text-[#001A41]/80 tracking-tight pt-0.5">
                     #MelayaniSepenuhHati
                 </span>
-                <p class="mt-2.5 text-[14px] italic font-extrabold text-slate-700 leading-snug">
-                    Melayani<br>
-                    Sepenuh Hati
-                </p>
             </div>
 
             <!-- Decorative Red Ribbon Waves at Bottom Left -->

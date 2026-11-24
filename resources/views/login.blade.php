@@ -70,9 +70,26 @@
                 </svg>
             </div>
 
-            <span class="block text-xs font-extrabold tracking-wide text-[#E11D2B] mt-3">#MelayaniSepenuhHati</span>
-            <h1 class="text-xl font-extrabold text-slate-900 mt-1">GraPARI Social Media Monitoring</h1>
+            <h1 class="text-xl font-extrabold text-slate-900 mt-3">GraPARI Social Media Monitoring</h1>
             <p class="text-xs font-medium text-slate-500 mt-1">Cluster Northern Manado | Facebook Marketplace</p>
+
+            <!-- Official Sub-brand Lockup Badges (IndiHome, Telkomsel Orbit, Telkomsel Halo) -->
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-4">
+                <div class="inline-flex flex-col items-end leading-none">
+                    <span class="text-[15px] font-black text-[#ED0226]" style="letter-spacing: -0.03em;">IndiHome</span>
+                    <span class="text-[7px] font-bold text-[#001A41]">by <strong class="text-[#ED0226]">Telkomsel</strong></span>
+                </div>
+                <span class="h-5 w-[1px] bg-slate-200"></span>
+                <div class="inline-flex flex-col items-start leading-none">
+                    <span class="text-[7px] font-extrabold text-[#001A41]">Telkomsel</span>
+                    <span class="text-[14px] font-black text-[#ED0226] -mt-0.5" style="letter-spacing: -0.03em;">Orbit</span>
+                </div>
+                <span class="h-5 w-[1px] bg-slate-200"></span>
+                <div class="inline-flex flex-col items-start leading-none">
+                    <span class="text-[7px] font-extrabold text-[#001A41]">Telkomsel</span>
+                    <span class="text-[14px] font-black text-[#ED0226] -mt-0.5" style="letter-spacing: -0.03em;">Halo</span>
+                </div>
+            </div>
         </div>
 
         @if($errors->has('login'))
